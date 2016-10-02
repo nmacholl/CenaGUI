@@ -1,0 +1,73 @@
+classdef CenaQuoter < handle
+    %CENAQUOTER Summary of this class goes here
+    %   Detailed explanation goes here
+    
+    properties(SetAccess = 'private')
+        % The parent figure of this UI object.
+        parentFig = [];
+        
+        % UIControl text for the quotes.
+        quoteBox = [];
+    end
+    
+    properties(Access = 'private')
+        quoteList = {};
+        quoteIdx = [];
+    end
+    
+    methods
+        function obj = CenaQuoter(parent)
+            % CONSTRUCTOR
+            
+            obj.parentFig = parent;
+            
+            obj.quoteBox = uicontrol('Parent', obj.parentFig,...
+                                     'Style', 'text',...
+                                     'Units', 'normalized',...
+                                     'Position', [0.01 0.1 0.28 0.45],...
+                                     'HorizontalAlignment', 'left',...
+                                     'FontSize', 16,...
+                                     'BackgroundColor', [1 1 1]);
+                                 
+            % Load quotes from cenaQuote.txt
+            % Get the path to the resource folder.
+            resourcePath = fileparts(obj.parentFig.UserData);
+            resourcePath = fullfile(resourcePath, 'resources', 'cenaQuote.txt');
+            
+            fid = fopen(resourcePath, 'r');
+            quotes = textscan(fid, '%s', 'Delimiter','\n');
+            obj.quoteList = quotes{1};                  
+        end
+        
+        function previousQuote(obj)
+            % FUNCTION
+            obj.quoteIdx = obj.quoteIdx - 1;
+            if obj.quoteIdx <= 0
+            	obj.quoteIdx = size(obj.quoteList, 1);
+            end
+        end
+        
+        function randomQuote(obj)
+            % FUNCTION
+            obj.quoteIdx = obj.quoteIdx - 1;
+            if obj.quoteIdx <= 0
+            	obj.quoteIdx = size(obj.quoteList, 1);
+            end
+        end
+        
+        function nextQuote(obj)
+            % FUNCTION
+            obj.quoteIdx = obj.quoteIdx + 1;
+            if obj.quoteIdx <= size(obj.quoteList, 1)
+                obj.quoteIdx = 1;
+            end
+        end
+        
+        function makeQuote(obj)
+            quote = ['<HTML>' ...
+                
+        end
+    end
+    
+end
+
