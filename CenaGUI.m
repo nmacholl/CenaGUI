@@ -1,5 +1,5 @@
 function [fig] = CenaGUI()
-%MATTGUI Demonstration MATLAB GUI.
+%CENAGUI Demonstration MATLAB GUI.
 %   This GUI serves as an example of a GUI written line by line.
 
     %% Create Figure
